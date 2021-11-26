@@ -10,6 +10,7 @@ import { styled } from '@storybook/theming';
 import { StatusIcon } from './components/StatusIcon/StatusIcon';
 import { Subnav } from './components/Subnav/Subnav';
 import { Interaction } from './components/Interaction/Interaction';
+import { HIGHLIGHT_ELEMENT } from './constants';
 
 export interface Controls {
   start: (args: any) => void;
@@ -34,6 +35,7 @@ interface InteractionsPanelProps {
   calls: Map<string, any>;
   endRef?: React.Ref<HTMLDivElement>;
   onScrollToEnd?: () => void;
+  onElementSelect?: (selector: string) => void;
 }
 
 const INITIAL_CONTROL_STATES = {
@@ -64,6 +66,7 @@ export const AddonPanelPure: React.FC<InteractionsPanelProps> = React.memo(
     hasException,
     isPlaying,
     onScrollToEnd,
+    onElementSelect,
     endRef,
     ...panelProps
   }) => (
@@ -87,6 +90,7 @@ export const AddonPanelPure: React.FC<InteractionsPanelProps> = React.memo(
           callsById={calls}
           controls={controls}
           controlStates={controlStates}
+          onElementSelect={onElementSelect}
         />
       ))}
       <div ref={endRef} />
@@ -161,6 +165,12 @@ export const Panel: React.FC<AddonPanelProps> = (props) => {
 
   const showStatus = log.length > 0 && !isPlaying;
   const hasException = log.some((item) => item.status === CallStates.ERROR);
+  const onElementSelect = React.useCallback(
+    (selector: string) => {
+      emit(HIGHLIGHT_ELEMENT, { storyId, selector });
+    },
+    [storyId]
+  );
 
   return (
     <React.Fragment key="interactions">
@@ -177,6 +187,7 @@ export const Panel: React.FC<AddonPanelProps> = (props) => {
         hasException={hasException}
         isPlaying={isPlaying}
         endRef={endRef}
+        onElementSelect={onElementSelect}
         onScrollToEnd={scrollTarget && scrollToTarget}
         {...props}
       />

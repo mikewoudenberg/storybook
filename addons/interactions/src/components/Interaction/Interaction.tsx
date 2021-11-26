@@ -7,6 +7,7 @@ import { MatcherResult } from '../MatcherResult';
 import { MethodCall } from '../MethodCall';
 import { StatusIcon } from '../StatusIcon/StatusIcon';
 import { Controls } from '../../Panel';
+import { findElementSelector } from '../../findElementSelectorFromCall';
 
 const MethodCallWrapper = styled.div(() => ({
   fontFamily: typography.fonts.mono,
@@ -58,17 +59,23 @@ const RowMessage = styled('pre')({
   padding: '8px 10px 8px 30px',
   fontSize: typography.size.s1,
 });
+const ElementHiglightButton = styled('button')({
+  marginLeft: 'auto',
+  marginTop: -38,
+});
 
 export const Interaction = ({
   call,
   callsById,
   controls,
   controlStates,
+  onElementSelect,
 }: {
   call: Call;
   callsById: Map<Call['id'], Call>;
   controls: Controls;
   controlStates: ControlStates;
+  onElementSelect?: (selector: string) => void;
 }) => {
   const [isHovered, setIsHovered] = React.useState(false);
   return (
@@ -85,6 +92,17 @@ export const Interaction = ({
           <MethodCall call={call} callsById={callsById} />
         </MethodCallWrapper>
       </RowLabel>
+      <ElementHiglightButton
+        type="button"
+        onClick={(e) => {
+          const callResult = findElementSelector(call, callsById);
+          if (callResult && onElementSelect) {
+            onElementSelect(callResult);
+          }
+        }}
+      >
+        ⌖
+      </ElementHiglightButton>
       {call.status === CallStates.ERROR &&
         call.exception &&
         (call.exception.message.startsWith('expect(') ? (

@@ -8,6 +8,7 @@ import {
   STORY_RENDER_PHASE_CHANGED,
 } from '@storybook/core-events';
 import global from 'global';
+import getCssSelector from 'css-selector-generator';
 
 import { Call, CallRef, CallStates, State, Options, ControlStates, LogItem } from './types';
 
@@ -152,6 +153,18 @@ export class Instrumenter {
     this.channel.on(SET_CURRENT_STORY, () => {
       if (this.initialized) this.cleanup();
       else this.initialized = true;
+    });
+
+    this.channel.on('storybook/interactions/highlight_element', (e) => {
+      const storyState = this.getState(e.storyId);
+      const [element] = Array.from(storyState.callRefsByResult.entries()).find(([key, value]) => {
+        return value.__callId__ === e.selector;
+      });
+
+      Promise.resolve(element).then((el) => {
+        const selector = getCssSelector(el);
+        this.channel.emit('storybook/a11y/highlight', { elements: [selector], color: '#6c1d5c' });
+      });
     });
 
     const start = ({ storyId, playUntil }: { storyId: string; playUntil?: Call['id'] }) => {

@@ -8519,6 +8519,7 @@ __metadata:
     "@storybook/addons": 6.4.0-rc.11
     "@storybook/client-logger": 6.4.0-rc.11
     "@storybook/core-events": 6.4.0-rc.11
+    css-selector-generator: ^3.4.4
     global: ^4.4.0
   languageName: unknown
   linkType: soft
@@ -16635,6 +16636,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cartesian@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "cartesian@npm:1.0.1"
+  dependencies:
+    xtend: ^4.0.1
+  checksum: fc32cd88418a3dda32c93c644aee21dc393642376587c3469eefe4eb6ae237d7b222f62c56b21ead091389f049ae09ef57a046e69a91262b508a524eab0c71ba
+  languageName: node
+  linkType: hard
+
 "case-sensitive-paths-webpack-plugin@npm:2.3.0":
   version: 2.3.0
   resolution: "case-sensitive-paths-webpack-plugin@npm:2.3.0"
@@ -18834,6 +18844,16 @@ __metadata:
     domutils: ^2.6.0
     nth-check: ^2.0.0
   checksum: f6751ce514ecf89315af5157dbd4463ed0461d7194d02fc8b5dcd5b36e8d3ab79f49199fb712437cef3530b769717000babf7de3d8969d7ea08d8d940482501c
+  languageName: node
+  linkType: hard
+
+"css-selector-generator@npm:^3.4.4":
+  version: 3.4.4
+  resolution: "css-selector-generator@npm:3.4.4"
+  dependencies:
+    cartesian: ^1.0.1
+    iselement: ^1.1.4
+  checksum: 0cdb489a07a99c1c96c0d3a780222bb2ad16a597e6fce51962ddcd9dd6368fb3b7650afcc24168ca077c83e136f6021472e6aff78349b9d6536d074118ddc810
   languageName: node
   linkType: hard
 
@@ -27649,6 +27669,13 @@ fsevents@^1.2.7:
   version: 4.0.6
   resolution: "isbinaryfile@npm:4.0.6"
   checksum: e1d09068ab5e4edf0753f28c75fb22dc694ff255ae1804211686a34e683973ca824dd03c8b5e02138f46c663ed03a9ded1d16da13031a58f6e25551ee89cd147
+  languageName: node
+  linkType: hard
+
+"iselement@npm:^1.1.4":
+  version: 1.1.4
+  resolution: "iselement@npm:1.1.4"
+  checksum: ba19ca3c10434ee0dce0c737a143b99900ae28249febdc86c2e88385db93ab3590f7fbaa1bb4418ab67a1186dd4dc78b124b1a2b4078a771f9d4ecec70d0a427
   languageName: node
   linkType: hard
 
